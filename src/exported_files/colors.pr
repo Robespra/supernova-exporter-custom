@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+
 {[ let brand = ds.currentBrand() /]}
 {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
 {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
@@ -17,43 +18,99 @@ class AppColors {
   {[/]}
 {[/]}
 
-  // Theme color maps
-  static const Map<String, Map<Brightness, Color>> themeColors = {
-{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ if colorToken.name && colorToken.name.startsWith("--") ]}
-  {[ const semanticName = colorToken.name.substring(2) /]}
-    '{{ semanticName }}': {
-      Brightness.light: semanticColor{{ semanticName.charAt(0).toUpperCase() + semanticName.slice(1) }},
-      Brightness.dark: const Color(0x{{ colorToken.value.dark ? colorToken.value.dark.hex : "FFFFFFFF" }}),
-    },
-  {[/]}
-  {[/]}
-{[/]}
-  };
-
-  // Get a theme-aware color dynamically
-  static Color getThemeColor(BuildContext context, String name) {
-    final brightness = Theme.of(context).brightness;
-    return themeColors[name]?[brightness] ??
-           (brightness == Brightness.light ? Colors.black : Colors.white);
+  // Helper method for theme-aware colors
+  static Color getThemeColor(Color light, Color dark, BuildContext context) {
+    return Theme.of(context).brightness == Brightness.light ? light : dark;
   }
 
   AppColors._();
 }
 
-// Extension for easier theme color access
+// Theme extension for easier access
 extension AppThemeExtension on BuildContext {
-  Color getSemanticColor(String name) {
-    return AppColors.getThemeColor(this, name);
+  // Helper method
+  Color _getThemeColor(Color light, Color dark) {
+    return Theme.of(this).brightness == Brightness.light ? light : dark;
   }
 
-  // Convenience getters for commonly used semantic colors
-  Color get textColor => getSemanticColor('text');
-  Color get backgroundNavColor => getSemanticColor('backgroundNav');
-  Color get backgroundColor => getSemanticColor('background');
-  Color get basicContrastTextColor => getSemanticColor('basicContrastText');
-  Color get basicContrastOppositeColor => getSemanticColor('basicContrastOpposite');
+  // Semantic color getters
+  Color get textColor => _getThemeColor(
+    AppColors.semanticColorText,
+    const Color(0xFF3D70A2)  // Dark value from your design system
+  );
+
+  Color get basicContrastTextColor => _getThemeColor(
+    AppColors.semanticColorBasicContrastText,
+    const Color(0xFFFFFFFF)
+  );
+
+  Color get basicContrastOppositeColor => _getThemeColor(
+    AppColors.semanticColorBasicContrastOpposite,
+    const Color(0xFF1D1D1D)
+  );
+
+  Color get colorlogoLineColor => _getThemeColor(
+    AppColors.semanticColorColorlogoLine,
+    const Color(0xFFFFFFFF)
+  );
+
+  Color get backgroundColor => _getThemeColor(
+    AppColors.semanticColorBackground,
+    const Color(0xFF1C1C1B)
+  );
+
+  Color get backgroundNavColor => _getThemeColor(
+    AppColors.semanticColorBackgroundNav,
+    const Color(0xFF2C2D2D)
+  );
+
+  Color get backgroundNavStrongerColor => _getThemeColor(
+    AppColors.semanticColorBackgroundNavStronger,
+    const Color(0xFF474949)
+  );
+
+  Color get greyColor => _getThemeColor(
+    AppColors.semanticColorGrey,
+    const Color(0xFFA3A3A3)
+  );
+
+  Color get greyDarkerColor => _getThemeColor(
+    AppColors.semanticColorGreyDarker,
+    const Color(0xFF515151)
+  );
+
+  Color get contrastOpacitySColor => _getThemeColor(
+    AppColors.semanticColorContrastOpacityS,
+    const Color(0x1AFFFFFF)  // 10% white
+  );
+
+  Color get contrastOpacityMColor => _getThemeColor(
+    AppColors.semanticColorContrastOpacityM,
+    const Color(0x40FFFFFF)  // 25% white
+  );
+
+  Color get backgroundCardsColor => _getThemeColor(
+    AppColors.semanticColorBackgroundCards,
+    const Color(0xFF2C2D2D)
+  );
+
+  Color get sucessPromoColor => _getThemeColor(
+    AppColors.semanticColorSucessPromo,
+    const Color(0xFF48BF73)
+  );
+
+  Color get warningYellowColor => _getThemeColor(
+    AppColors.semanticColorWarningYellow,
+    const Color(0xFFECCB57)
+  );
+
+  Color get brandRedColor => _getThemeColor(
+    AppColors.semanticColorBrandRed,
+    const Color(0xFFCB1617)
+  );
+
+  Color get nightShowColor => _getThemeColor(
+    AppColors.semanticColorNightShow,
+    const Color(0xFF3D70A2)
+  );
 }
