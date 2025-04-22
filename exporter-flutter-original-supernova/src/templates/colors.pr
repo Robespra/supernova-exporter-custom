@@ -1,21 +1,19 @@
-{[ if context.isSemantic /]}
-    {[ if context.value /]}
-        {[ if context.value.hex /]}
-            Color(0x{{ context.value.hex }})
-        {[ else /]}
-            {[ if context.value.rgba /]}
-                Color.fromRGBO({{context.value.rgba.r}}, {{context.value.rgba.g}}, {{context.value.rgba.b}}, {{context.value.rgba.a}})
-            {[ else /]}
-                Colors.transparent
-            {[ /if /]}
-        {[ /if /]}
-    {[ else /]}
-        Colors.transparent
-    {[ /if /]}
-{[ else /]}
-    {[ if context.hex ]}
-        Color(0x{{ context.hex }})
-    {[ else ]}
-        Colors.transparent
-    {[ /if /]}
-{[ /if /]}
+{[ log "Color value context:" /]}
+{[ log context /]}
+{[ if typeof context === "string" ]}
+Color(0x{{ context }})
+{[ else if context.hex ]}
+Color(0x{{ context.hex }})
+{[ else if context.value ]}
+  {[ if context.value.hex ]}
+Color(0x{{ context.value.hex }})
+  {[ else if context.value.light ]}
+Color(0x{{ context.value.light.hex }})
+  {[ else if context.value.dark ]}
+Color(0x{{ context.value.dark.hex }})
+  {[ else ]}
+Color(0xFF000000)
+  {[/]}
+{[ else ]}
+Color(0xFF000000)
+{[/]}
