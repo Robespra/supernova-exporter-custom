@@ -8,7 +8,7 @@ class AppColors extends ThemeExtension<AppColors> {
     {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
     {[ for colorToken in colorTokenInGroups ]}
       {[ if colorToken.name.startsWith("--") ]}
-  final Color {{ colorToken.name.substring(2) }};
+  final Color {{ colorToken.name.substring(2, colorToken.name.length) }};
       {[/]}
     {[/]}
   {[/]}
@@ -19,7 +19,7 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-    required this.{{ colorToken.name.substring(2) }},
+    required this.{{ colorToken.name.substring(2, colorToken.name.length) }},
         {[/]}
       {[/]}
     {[/]}
@@ -32,7 +32,7 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-    Color? {{ colorToken.name.substring(2) }},
+    Color? {{ colorToken.name.substring(2, colorToken.name.length) }},
         {[/]}
       {[/]}
     {[/]}
@@ -43,7 +43,7 @@ class AppColors extends ThemeExtension<AppColors> {
         {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
         {[ for colorToken in colorTokenInGroups ]}
           {[ if colorToken.name.startsWith("--") ]}
-      {{ colorToken.name.substring(2) }}: {{ colorToken.name.substring(2) }} ?? this.{{ colorToken.name.substring(2) }},
+      {{ colorToken.name.substring(2, colorToken.name.length) }}: {{ colorToken.name.substring(2, colorToken.name.length) }} ?? this.{{ colorToken.name.substring(2, colorToken.name.length) }},
           {[/]}
         {[/]}
       {[/]}
@@ -61,7 +61,7 @@ class AppColors extends ThemeExtension<AppColors> {
         {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
         {[ for colorToken in colorTokenInGroups ]}
           {[ if colorToken.name.startsWith("--") ]}
-      {{ colorToken.name.substring(2) }}: Color.lerp({{ colorToken.name.substring(2) }}, other.{{ colorToken.name.substring(2) }}, t)!,
+      {{ colorToken.name.substring(2, colorToken.name.length) }}: Color.lerp({{ colorToken.name.substring(2, colorToken.name.length) }}, other.{{ colorToken.name.substring(2, colorToken.name.length) }}, t)!,
           {[/]}
         {[/]}
       {[/]}
