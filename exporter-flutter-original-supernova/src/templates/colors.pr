@@ -4,17 +4,6 @@ import 'package:flutter/material.dart';
 class AppColors extends ThemeExtension<AppColors> {
 {[ let brand = ds.currentBrand() /]}
 {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
-{[ let hasThemeVariants = false /]}
-
-{[ // First pass to detect if any tokens have theme variants
-   traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-    {[ if colorToken.value && colorToken.value.light && colorToken.value.dark ]}
-      {[ set hasThemeVariants = true /]}
-    {[/]}
-  {[/]}
-{[/]}
 
 {[ // Create the class properties
    traverse colorTokensTree property subgroups into colorTokenGroup ]}
@@ -95,9 +84,9 @@ class AppColors extends ThemeExtension<AppColors> {
   {[ for colorToken in colorTokenInGroups ]}
   {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
   {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    {[ if colorToken.value && colorToken.value.light ]}
+    {[ if colorToken.value.light ]}
     {{ fullTokenName }}: Color(0x{{ colorToken.value.light.hex }}),
-    {[ else if colorToken.value && colorToken.value.hex ]}
+    {[ else if colorToken.value.hex ]}
     {{ fullTokenName }}: Color(0x{{ colorToken.value.hex }}),
     {[ else ]}
     {{ fullTokenName }}: Color(0xFF000000),
@@ -115,9 +104,9 @@ class AppColors extends ThemeExtension<AppColors> {
   {[ for colorToken in colorTokenInGroups ]}
   {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
   {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    {[ if colorToken.value && colorToken.value.dark ]}
+    {[ if colorToken.value.dark ]}
     {{ fullTokenName }}: Color(0x{{ colorToken.value.dark.hex }}),
-    {[ else if colorToken.value && colorToken.value.hex ]}
+    {[ else if colorToken.value.hex ]}
     {{ fullTokenName }}: Color(0x{{ colorToken.value.hex }}),
     {[ else ]}
     {{ fullTokenName }}: Color(0xFF000000),
