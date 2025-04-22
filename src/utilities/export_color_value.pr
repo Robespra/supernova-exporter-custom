@@ -1,33 +1,33 @@
-{[ if context.isSemantic /]}
-    {[ if context.value /]}
-        {[ if context.value.hex /]}
-            {[ const alpha = context.value.hex.substring(6, 2) /]}
-            {[ const red = context.value.hex.substring(0, 2) /]}
-            {[ const green = context.value.hex.substring(2, 2) /]}
-            {[ const blue = context.value.hex.substring(4, 2) /]}
+{[ if context.isSemantic ]}
+    {[ if context.value ]}
+        {[ if context.value.hex ]}
+            {[ const alpha = context.value.hex.substring(6, 2) ]}
+            {[ const red = context.value.hex.substring(0, 2) ]}
+            {[ const green = context.value.hex.substring(2, 2) ]}
+            {[ const blue = context.value.hex.substring(4, 2) ]}
             Color(0x{{alpha}}{{red}}{{green}}{{blue}})
-        {[ else if context.value.light /]}
-            {[ const alpha = context.value.light.hex.substring(6, 2) /]}
-            {[ const red = context.value.light.hex.substring(0, 2) /]}
-            {[ const green = context.value.light.hex.substring(2, 2) /]}
-            {[ const blue = context.value.light.hex.substring(4, 2) /]}
+        {[ else if context.value.light ]}
+            {[ const alpha = context.value.light.hex.substring(6, 2) ]}
+            {[ const red = context.value.light.hex.substring(0, 2) ]}
+            {[ const green = context.value.light.hex.substring(2, 2) ]}
+            {[ const blue = context.value.light.hex.substring(4, 2) ]}
             Color(0x{{alpha}}{{red}}{{green}}{{blue}})
-        {[ else if context.value.dark /]}
-            {[ const alpha = context.value.dark.hex.substring(6, 2) /]}
-            {[ const red = context.value.dark.hex.substring(0, 2) /]}
-            {[ const green = context.value.dark.hex.substring(2, 2) /]}
-            {[ const blue = context.value.dark.hex.substring(4, 2) /]}
+        {[ else if context.value.dark ]}
+            {[ const alpha = context.value.dark.hex.substring(6, 2) ]}
+            {[ const red = context.value.dark.hex.substring(0, 2) ]}
+            {[ const green = context.value.dark.hex.substring(2, 2) ]}
+            {[ const blue = context.value.dark.hex.substring(4, 2) ]}
             Color(0x{{alpha}}{{red}}{{green}}{{blue}})
-        {[ else /]}
+        {[ else ]}
             Color(0xFF000000)
         {[/]}
-    {[ else /]}
+    {[ else ]}
         Color(0xFF000000)
     {[/]}
-{[ else /]}
-    {[ const alpha = context.hex.substring(6, 2) /]}
-    {[ const red = context.hex.substring(0, 2) /]}
-    {[ const green = context.hex.substring(2, 2) /]}
-    {[ const blue = context.hex.substring(4, 2) /]}
+{[ else ]}
+    {[ const alpha = context.hex.substring(6, 2) ]}
+    {[ const red = context.hex.substring(0, 2) ]}
+    {[ const green = context.hex.substring(2, 2) ]}
+    {[ const blue = context.hex.substring(4, 2) ]}
     Color(0x{{alpha}}{{red}}{{green}}{{blue}})
 {[/]}
