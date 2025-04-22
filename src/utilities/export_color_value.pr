@@ -17,3 +17,5 @@ Color(0xFF000000)
 {[ else ]}
 Color(0xFF000000)
 {[/]}
+
+Color(0x{[ if context.value.hex ]}{[ context.value.hex /]}{[ else if context.value.light ]}{[ context.value.light.hex /]}{[ else if context.value.dark ]}{[ context.value.dark.hex /]}{[ else ]}FFFFFF{[/]})
