@@ -1,118 +1,39 @@
 import 'package:flutter/material.dart';
 
-class AppColors extends ThemeExtension<AppColors> {
-  // Semantic colors
-  final Color primary;
-  final Color onPrimary;
-  final Color secondary;
-  final Color onSecondary;
-  final Color tertiary;
-  final Color onTertiary;
-  final Color error;
-  final Color onError;
-  final Color background;
-  final Color onBackground;
-  final Color surface;
-  final Color onSurface;
+class AppColors {
+  {[ let brand = ds.currentBrand() /]}
+  {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
 
-  // Non-semantic colors
-  static const Color black = Color(0xFF000000);
-  static const Color white = Color(0xFFFFFFFF);
+  // Light theme colors
+  {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+    {[ for colorToken in colorTokenInGroups ]}
+      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+      {[ if (colorToken.description && colorToken.description !== "") ]}
+  {{ createDocumentationComment(colorToken.description, "  ") }}
+      {[/]}
+      {[ if colorToken.name.startsWith("--") ]}
+  static const {{ fullTokenName }}Light = {[ inject "export_color_value" context colorToken.value.light /]};
+      {[ else ]}
+  static const {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
+      {[/]}
+    {[/]}
+  {[/]}
 
-  const AppColors({
-    required this.primary,
-    required this.onPrimary,
-    required this.secondary,
-    required this.onSecondary,
-    required this.tertiary,
-    required this.onTertiary,
-    required this.error,
-    required this.onError,
-    required this.background,
-    required this.onBackground,
-    required this.surface,
-    required this.onSurface,
-  });
+  // Dark theme colors
+  {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+    {[ for colorToken in colorTokenInGroups ]}
+      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+      {[ if colorToken.name.startsWith("--") ]}
+  static const {{ fullTokenName }}Dark = {[ inject "export_color_value" context colorToken.value.dark /]};
+      {[/]}
+    {[/]}
+  {[/]}
 
-  @override
-  AppColors copyWith({
-    Color? primary,
-    Color? onPrimary,
-    Color? secondary,
-    Color? onSecondary,
-    Color? tertiary,
-    Color? onTertiary,
-    Color? error,
-    Color? onError,
-    Color? background,
-    Color? onBackground,
-    Color? surface,
-    Color? onSurface,
-  }) {
-    return AppColors(
-      primary: primary ?? this.primary,
-      onPrimary: onPrimary ?? this.onPrimary,
-      secondary: secondary ?? this.secondary,
-      onSecondary: onSecondary ?? this.onSecondary,
-      tertiary: tertiary ?? this.tertiary,
-      onTertiary: onTertiary ?? this.onTertiary,
-      error: error ?? this.error,
-      onError: onError ?? this.onError,
-      background: background ?? this.background,
-      onBackground: onBackground ?? this.onBackground,
-      surface: surface ?? this.surface,
-      onSurface: onSurface ?? this.onSurface,
-    );
-  }
-
-  @override
-  AppColors lerp(ThemeExtension<AppColors>? other, double t) {
-    if (other is! AppColors) {
-      return this;
-    }
-    return AppColors(
-      primary: Color.lerp(primary, other.primary, t)!,
-      onPrimary: Color.lerp(onPrimary, other.onPrimary, t)!,
-      secondary: Color.lerp(secondary, other.secondary, t)!,
-      onSecondary: Color.lerp(onSecondary, other.onSecondary, t)!,
-      tertiary: Color.lerp(tertiary, other.tertiary, t)!,
-      onTertiary: Color.lerp(onTertiary, other.onTertiary, t)!,
-      error: Color.lerp(error, other.error, t)!,
-      onError: Color.lerp(onError, other.onError, t)!,
-      background: Color.lerp(background, other.background, t)!,
-      onBackground: Color.lerp(onBackground, other.onBackground, t)!,
-      surface: Color.lerp(surface, other.surface, t)!,
-      onSurface: Color.lerp(onSurface, other.onSurface, t)!,
-    );
-  }
-
-  static AppColors get light => AppColors(
-    primary: Color(0x{[ context.tokens.colors.primary.light.hex /]}),
-    onPrimary: Color(0x{[ context.tokens.colors.onPrimary.light.hex /]}),
-    secondary: Color(0x{[ context.tokens.colors.secondary.light.hex /]}),
-    onSecondary: Color(0x{[ context.tokens.colors.onSecondary.light.hex /]}),
-    tertiary: Color(0x{[ context.tokens.colors.tertiary.light.hex /]}),
-    onTertiary: Color(0x{[ context.tokens.colors.onTertiary.light.hex /]}),
-    error: Color(0x{[ context.tokens.colors.error.light.hex /]}),
-    onError: Color(0x{[ context.tokens.colors.onError.light.hex /]}),
-    background: Color(0x{[ context.tokens.colors.background.light.hex /]}),
-    onBackground: Color(0x{[ context.tokens.colors.onBackground.light.hex /]}),
-    surface: Color(0x{[ context.tokens.colors.surface.light.hex /]}),
-    onSurface: Color(0x{[ context.tokens.colors.onSurface.light.hex /]}),
-  );
-
-  static AppColors get dark => AppColors(
-    primary: Color(0x{[ context.tokens.colors.primary.dark.hex /]}),
-    onPrimary: Color(0x{[ context.tokens.colors.onPrimary.dark.hex /]}),
-    secondary: Color(0x{[ context.tokens.colors.secondary.dark.hex /]}),
-    onSecondary: Color(0x{[ context.tokens.colors.onSecondary.dark.hex /]}),
-    tertiary: Color(0x{[ context.tokens.colors.tertiary.dark.hex /]}),
-    onTertiary: Color(0x{[ context.tokens.colors.onTertiary.dark.hex /]}),
-    error: Color(0x{[ context.tokens.colors.error.dark.hex /]}),
-    onError: Color(0x{[ context.tokens.colors.onError.dark.hex /]}),
-    background: Color(0x{[ context.tokens.colors.background.dark.hex /]}),
-    onBackground: Color(0x{[ context.tokens.colors.onBackground.dark.hex /]}),
-    surface: Color(0x{[ context.tokens.colors.surface.dark.hex /]}),
-    onSurface: Color(0x{[ context.tokens.colors.onSurface.dark.hex /]}),
-  );
+  AppColors._();
 }
