@@ -10,9 +10,9 @@ class AppColors {
       {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
       {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
       {[ if (colorToken.description && colorToken.description !== "") ]}
-  {{ createDocumentationComment(colorToken.description, "  ") }}
+{{ createDocumentationComment(colorToken.description, "  ") }}
       {[/]}
-      static const Color {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
+      static const {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
     {[/]}
   {[/]}
   AppColors._();
