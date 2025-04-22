@@ -17,7 +17,7 @@
         Color(0x{{ context.hex }})
     {[ else /]}
         {[ if context.rgba /]}
-            Color.fromRGBO({{context.rgba.r}}, {{context.value.rgba.g}}, {{context.value.rgba.b}}, {{context.value.rgba.a}})
+            Color.fromRGBO({{context.rgba.r}}, {{context.rgba.g}}, {{context.rgba.b}}, {{context.rgba.a}})
         {[ else /]}
             Colors.transparent
         {[ /if /]}
