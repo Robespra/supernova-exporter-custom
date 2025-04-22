@@ -1,21 +1,5 @@
-{[ if context.isSemantic ]}
-    {[ if context.value ]}
-        {[ if context.value.hex ]}
-            Color(0x{{ context.value.hex }})
-        {[ else if context.value.light ]}
-            Color(0x{{ context.value.light.hex }})
-        {[ else if context.value.dark ]}
-            Color(0x{{ context.value.dark.hex }})
-        {[ else ]}
-            Color(0xFF000000)
-        {[/]}
-    {[ else ]}
-        Color(0xFF000000)
-    {[/]}
-{[ else ]}
-    {[ if context.hex ]}
-        Color(0x{{ context.hex }})
-    {[ else ]}
-        Color(0xFF000000)
-    {[/]}
-{[/]}
+{[ const alpha = context.hex.substring(6, 2) /]}
+{[ const red = context.hex.substring(0, 2) /]}
+{[ const green = context.hex.substring(2, 2) /]}
+{[ const blue = context.hex.substring(4, 2) /]}
+Color(0x{{alpha}}{{red}}{{green}}{{blue}})
