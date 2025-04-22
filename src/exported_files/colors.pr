@@ -8,7 +8,7 @@ class AppColors extends ThemeExtension<AppColors> {
     {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
     {[ for colorToken in colorTokenInGroups ]}
       {[ if colorToken.name.startsWith("--") ]}
-  final Color {{ colorToken.name.substring(2, colorToken.name.length) }};
+  final Color {{ getSemanticName(colorToken.name) }};
       {[/]}
     {[/]}
   {[/]}
@@ -19,7 +19,7 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-    required this.{{ colorToken.name.substring(2, colorToken.name.length) }},
+    required this.{{ getSemanticName(colorToken.name) }},
         {[/]}
       {[/]}
     {[/]}
@@ -32,7 +32,7 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-    Color? {{ colorToken.name.substring(2, colorToken.name.length) }},
+    Color? {{ getSemanticName(colorToken.name) }},
         {[/]}
       {[/]}
     {[/]}
@@ -43,7 +43,7 @@ class AppColors extends ThemeExtension<AppColors> {
         {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
         {[ for colorToken in colorTokenInGroups ]}
           {[ if colorToken.name.startsWith("--") ]}
-      {{ colorToken.name.substring(2, colorToken.name.length) }}: {{ colorToken.name.substring(2, colorToken.name.length) }} ?? this.{{ colorToken.name.substring(2, colorToken.name.length) }},
+      {{ getSemanticName(colorToken.name) }}: {{ getSemanticName(colorToken.name) }} ?? this.{{ getSemanticName(colorToken.name) }},
           {[/]}
         {[/]}
       {[/]}
@@ -61,7 +61,7 @@ class AppColors extends ThemeExtension<AppColors> {
         {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
         {[ for colorToken in colorTokenInGroups ]}
           {[ if colorToken.name.startsWith("--") ]}
-      {{ colorToken.name.substring(2, colorToken.name.length) }}: Color.lerp({{ colorToken.name.substring(2, colorToken.name.length) }}, other.{{ colorToken.name.substring(2, colorToken.name.length) }}, t)!,
+      {{ getSemanticName(colorToken.name) }}: Color.lerp({{ getSemanticName(colorToken.name) }}, other.{{ getSemanticName(colorToken.name) }}, t)!,
           {[/]}
         {[/]}
       {[/]}
