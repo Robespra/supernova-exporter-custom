@@ -31,6 +31,10 @@
         {
             "invoke": "text_styles.pr",
             "write_to": "text_styles.dart"
+        },
+        {
+            "invoke": "app_theme.pr",
+            "write_to": "app_theme.dart"
         }
     ]
 }

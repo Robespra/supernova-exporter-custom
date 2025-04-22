@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+import 'colors.dart';
+
+// Theme-aware extension class
+extension AppThemeExtension on BuildContext {
+  // Get a theme-aware color
+  Color getThemeColor(Color light, Color dark) {
+    return Theme.of(this).brightness == Brightness.light ? light : dark;
+  }
+
+  // Semantic color getters
+  Color get textColor => getThemeColor(AppColors.text, Color(0xFFF6F6F6));
+  Color get basicContrastTextColor => getThemeColor(AppColors.basicContrastText, Color(0xFFFFFFFF));
+  Color get basicContrastOppositeColor => getThemeColor(AppColors.basicContrastOpposite, Color(0xFF1D1D1D));
+  Color get colorlogoLineColor => getThemeColor(AppColors.colorlogoLine, Color(0xFFFFFFFF));
+  Color get backgroundColor => getThemeColor(AppColors.background, Color(0xFF1C1C1B));
+  Color get backgroundNavColor => getThemeColor(AppColors.backgroundNav, Color(0xFF2C2D2D));
+  Color get backgroundNavStrongerColor => getThemeColor(AppColors.backgroundNavStronger, Color(0xFF474949));
+  Color get greyColor => getThemeColor(AppColors.grey, Color(0xFFA3A3A3));
+  Color get greyDarkerColor => getThemeColor(AppColors.greyDarker, Color(0xFF515151));
+  Color get backgroundCardsColor => getThemeColor(AppColors.backgroundCards, Color(0xFF2C2D2D));
+  Color get sucessPromoColor => getThemeColor(AppColors.sucessPromo, Color(0xFF48BF73));
+  Color get warningYellowColor => getThemeColor(AppColors.warningYellow, Color(0xFFECCB57));
+  Color get brandRedColor => getThemeColor(AppColors.brandRed, Color(0xFFCB1617));
+}

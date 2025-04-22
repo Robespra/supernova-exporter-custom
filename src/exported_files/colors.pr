@@ -17,43 +17,5 @@ class AppColors {
 
   {[/]}
 {[/]}
-
-  // For semantic colors with dark variants
-{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ if colorToken.value && colorToken.value.dark ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-  static const {{ fullTokenName }}Dark = Color(0x{{ colorToken.value.dark.hex }});
-  {[/]}
-  {[/]}
-{[/]}
-
-  // Simple helper for theme-aware colors
-  static Color getThemeColor(Color lightColor, Color darkColor, BuildContext context) {
-    return Theme.of(context).brightness == Brightness.light ? lightColor : darkColor;
-  }
-
   AppColors._();
-}
-
-// Extension for theme-aware access
-extension AppColorsTheme on BuildContext {
-{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ if colorToken.value && colorToken.value.dark ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-  Color get {{ fullTokenName }}Color => AppColors.getThemeColor(
-    AppColors.{{ fullTokenName }},
-    AppColors.{{ fullTokenName }}Dark,
-    this
-  );
-  {[/]}
-  {[/]}
-{[/]}
 }
