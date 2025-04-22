@@ -13,17 +13,9 @@
         Colors.transparent
     {[ /if /]}
 {[ else /]}
-    {[ if context.hex /]}
-        {[ const alpha = context.hex.substring(6, 2) /]}
-        {[ const red = context.hex.substring(0, 2) /]}
-        {[ const green = context.hex.substring(2, 2) /]}
-        {[ const blue = context.hex.substring(4, 2) /]}
-        Color(0x{{alpha}}{{red}}{{green}}{{blue}})
-    {[ else /]}
-        {[ if context.rgba /]}
-            Color.fromRGBO({{context.rgba.r}}, {{context.rgba.g}}, {{context.rgba.b}}, {{context.rgba.a}})
-        {[ else /]}
-            Colors.transparent
-        {[ /if /]}
+    {[ if context.hex ]}
+        Color(0x{{ context.hex }})
+    {[ else ]}
+        Colors.transparent
     {[ /if /]}
 {[ /if /]}
