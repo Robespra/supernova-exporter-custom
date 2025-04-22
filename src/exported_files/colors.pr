@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Add this comment to verify that basic changes work
+// This class provides color constants for the app
 class AppColors {
   {[ let brand = ds.currentBrand() /]}
   {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
@@ -16,57 +18,10 @@ class AppColors {
     {[/]}
   {[/]}
 
-  // Theme-aware color access
-  static Color getThemeColor(BuildContext context, String colorName) {
-    final brightness = Theme.of(context).brightness;
-    switch (colorName) {
-      case "text":
-        return brightness == Brightness.light ? text : Color(0xFFF6F6F6);
-      case "basicContrastText":
-        return brightness == Brightness.light ? basicContrastText : Color(0xFFFFFFFF);
-      case "basicContrastOpposite":
-        return brightness == Brightness.light ? basicContrastOpposite : Color(0xFF1D1D1D);
-      case "colorlogoLine":
-        return brightness == Brightness.light ? colorlogoLine : Color(0xFFFFFFFF);
-      case "background":
-        return brightness == Brightness.light ? background : Color(0xFF1C1C1B);
-      case "backgroundNav":
-        return brightness == Brightness.light ? backgroundNav : Color(0xFF2C2D2D);
-      case "backgroundNavStronger":
-        return brightness == Brightness.light ? backgroundNavStronger : Color(0xFF474949);
-      case "grey":
-        return brightness == Brightness.light ? grey : Color(0xFFA3A3A3);
-      case "greyDarker":
-        return brightness == Brightness.light ? greyDarker : Color(0xFF515151);
-      case "backgroundCards":
-        return brightness == Brightness.light ? backgroundCards : Color(0xFF2C2D2D);
-      case "sucessPromo":
-        return brightness == Brightness.light ? sucessPromo : Color(0xFF48BF73);
-      case "warningYellow":
-        return brightness == Brightness.light ? warningYellow : Color(0xFFECCB57);
-      case "brandRed":
-        return brightness == Brightness.light ? brandRed : Color(0xFFCB1617);
-      default:
-        return Color(0xFF000000);
-    }
+  // Simple helper function for theme-aware colors
+  static Color getThemeColor(Color lightColor, Color darkColor, BuildContext context) {
+    return Theme.of(context).brightness == Brightness.light ? lightColor : darkColor;
   }
 
   AppColors._();
-}
-
-// Extension for easier theme access
-extension ThemeColors on BuildContext {
-  Color get textColor => AppColors.getThemeColor(this, "text");
-  Color get basicContrastTextColor => AppColors.getThemeColor(this, "basicContrastText");
-  Color get basicContrastOppositeColor => AppColors.getThemeColor(this, "basicContrastOpposite");
-  Color get colorlogoLineColor => AppColors.getThemeColor(this, "colorlogoLine");
-  Color get backgroundColor => AppColors.getThemeColor(this, "background");
-  Color get backgroundNavColor => AppColors.getThemeColor(this, "backgroundNav");
-  Color get backgroundNavStrongerColor => AppColors.getThemeColor(this, "backgroundNavStronger");
-  Color get greyColor => AppColors.getThemeColor(this, "grey");
-  Color get greyDarkerColor => AppColors.getThemeColor(this, "greyDarker");
-  Color get backgroundCardsColor => AppColors.getThemeColor(this, "backgroundCards");
-  Color get sucessPromoColor => AppColors.getThemeColor(this, "sucessPromo");
-  Color get warningYellowColor => AppColors.getThemeColor(this, "warningYellow");
-  Color get brandRedColor => AppColors.getThemeColor(this, "brandRed");
 }
