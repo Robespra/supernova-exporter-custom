@@ -20,7 +20,9 @@ class AppColors extends ThemeExtension<AppColors> {
     {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
     {[ for colorToken in colorTokenInGroups ]}
       {[ if !colorToken.name.startsWith("--") ]}
-  static const Color {{ colorToken.name }} = {[ inject "export_color_value" context colorToken.value /]};
+      {[ log "Non-semantic color token:" /]}
+      {[ log colorToken /]}
+  static const Color {{ colorToken.name }} = {[ inject "export_color_value" context colorToken /]};
       {[/]}
     {[/]}
   {[/]}
@@ -87,7 +89,9 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context colorToken.value.light /]},
+        {[ log "Light theme color token:" /]}
+        {[ log colorToken /]}
+    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context colorToken /]},
         {[/]}
       {[/]}
     {[/]}
@@ -100,7 +104,9 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context colorToken.value.dark /]},
+        {[ log "Dark theme color token:" /]}
+        {[ log colorToken /]}
+    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context colorToken /]},
         {[/]}
       {[/]}
     {[/]}

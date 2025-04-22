@@ -1,5 +1,11 @@
-{[ if typeof context === "object" ]}
-Color(0x{{ context.hex }})
-{[ else ]}
+{[ log "Color value context:" /]}
+{[ log context /]}
+{[ if typeof context === "string" ]}
 Color(0x{{ context }})
+{[ else if context.hex ]}
+Color(0x{{ context.hex }})
+{[ else if context.value ]}
+Color(0x{{ context.value }})
+{[ else ]}
+Color(0xFF000000) // Fallback black color for debugging
 {[/]}
