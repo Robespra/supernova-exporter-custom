@@ -1,47 +1,20 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
 
+// Theme configuration
 class AppTheme {
-  static ThemeData lightTheme() => ThemeData(
-    brightness: Brightness.light,
-    extensions: [
-      AppColors(
-        {[ let brand = ds.currentBrand() /]}
-        {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
-        {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-          {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-          {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-          {[ for colorToken in colorTokenInGroups ]}
-            {[ if colorToken.name.startsWith("--") ]}
-        {{ getSemanticName(colorToken.name) }}: const {[ inject "export_color_value" context colorToken.value.light /]},
-            {[/]}
-          {[/]}
-        {[/]}
-      )
-    ]
+  static ThemeData lightTheme = ThemeData.light().copyWith(
+    extensions: [AppColors.light],
+    // Other theme properties can be set here
   );
 
-  static ThemeData darkTheme() => ThemeData(
-    brightness: Brightness.dark,
-    extensions: [
-      AppColors(
-        {[ let brand = ds.currentBrand() /]}
-        {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
-        {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-          {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-          {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-          {[ for colorToken in colorTokenInGroups ]}
-            {[ if colorToken.name.startsWith("--") ]}
-        {{ getSemanticName(colorToken.name) }}: const {[ inject "export_color_value" context colorToken.value.dark /]},
-            {[/]}
-          {[/]}
-        {[/]}
-      )
-    ]
+  static ThemeData darkTheme = ThemeData.dark().copyWith(
+    extensions: [AppColors.dark],
+    // Other theme properties can be set here
   );
+}
 
-  /// Get the current theme colors
-  static AppColors colorsOf(BuildContext context) {
-    return Theme.of(context).extension<AppColors>()!;
-  }
+// Extension method for easy access
+extension AppThemeExtension on BuildContext {
+  AppColors get appColors => Theme.of(this).extension<AppColors>()!;
 }
