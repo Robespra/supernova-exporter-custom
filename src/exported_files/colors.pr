@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors extends ThemeExtension<AppColors> {
+  // Semantic colors (with light/dark variants)
   final Color text;
   final Color basicContrastText;
   final Color basicContrastOpposite;
@@ -16,6 +17,24 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color sucessPromo;
   final Color warningYellow;
   final Color brandRed;
+
+  // Non-semantic colors (single value)
+  static const Color black = Color(0xFF000000);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color black90 = Color(0xFF121211);
+  static const Color black80 = Color(0xFF2C2D2D);
+  static const Color black70 = Color(0xFF1C1C1B);
+  static const Color black60 = Color(0xFF464747);
+  static const Color black40 = Color(0xFF464747);
+  static const Color black20 = Color(0xFF818281);
+  static const Color black00 = Color(0xFFC4C4C4);
+  static const Color black10 = Color(0xFFF1EEEA);
+  static const Color beige = Color(0xFFC6A669);
+  static const Color beige80 = Color(0xFFCFB582);
+  static const Color beige60 = Color(0xFFDBC59E);
+  static const Color beige40 = Color(0xFFE6D7BA);
+  static const Color beige20 = Color(0xFFF1E8D7);
+  static const Color beige10 = Color(0xFFF6F6F6);
 
   const AppColors({
     required this.text,
