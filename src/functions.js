@@ -28,18 +28,6 @@ function createFullTokenGroupPath(tokenGroup) {
 }
 
 /**
- * Removes the -- prefix from semantic token names
- * @param {string} name The token name
- * @returns {string}
- */
-function getSemanticName(name) {
-  if (name.startsWith("--")) {
-    return name.slice(2);
-  }
-  return name;
-}
-
-/**
  *
  * @param {Array<any>} lhs
  * @param {Array<any>} rhs
@@ -66,4 +54,3 @@ Pulsar.registerFunction(
 Pulsar.registerFunction("createFullTokenGroupPath", createFullTokenGroupPath);
 Pulsar.registerFunction("arrayConcat", arrayConcat);
 Pulsar.registerFunction("arrayJoin", arrayJoin);
-Pulsar.registerFunction("getSemanticName", getSemanticName);
