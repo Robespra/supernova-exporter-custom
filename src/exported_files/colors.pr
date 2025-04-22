@@ -8,7 +8,7 @@ class AppColors extends ThemeExtension<AppColors> {
     {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
     {[ for colorToken in colorTokenInGroups ]}
       {[ if colorToken.name.startsWith("--") ]}
-        {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+        {[ const simpleName = colorToken.name.substring(2).camelcased("semantic", false) /]}
   final Color {{ simpleName }};
       {[/]}
     {[/]}
@@ -20,7 +20,7 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-          {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+          {[ const simpleName = colorToken.name.substring(2).camelcased("semantic", false) /]}
     required this.{{ simpleName }},
         {[/]}
       {[/]}
@@ -34,7 +34,7 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-          {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+          {[ const simpleName = colorToken.name.substring(2).camelcased("semantic", false) /]}
     Color? {{ simpleName }},
         {[/]}
       {[/]}
@@ -46,7 +46,7 @@ class AppColors extends ThemeExtension<AppColors> {
         {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
         {[ for colorToken in colorTokenInGroups ]}
           {[ if colorToken.name.startsWith("--") ]}
-            {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+            {[ const simpleName = colorToken.name.substring(2).camelcased("semantic", false) /]}
       {{ simpleName }}: {{ simpleName }} ?? this.{{ simpleName }},
           {[/]}
         {[/]}
@@ -65,7 +65,7 @@ class AppColors extends ThemeExtension<AppColors> {
         {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
         {[ for colorToken in colorTokenInGroups ]}
           {[ if colorToken.name.startsWith("--") ]}
-            {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+            {[ const simpleName = colorToken.name.substring(2).camelcased("semantic", false) /]}
       {{ simpleName }}: Color.lerp({{ simpleName }}, other.{{ simpleName }}, t)!,
           {[/]}
         {[/]}
