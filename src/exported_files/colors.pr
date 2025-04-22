@@ -36,81 +36,81 @@ extension AppThemeExtension on BuildContext {
   // Semantic color getters
   Color get textColor => _getThemeColor(
     AppColors.semanticColorText,
-    const Color(0xFF3D70A2)  // Dark value from your design system
+    AppColors.semanticColorTextDark
   );
 
   Color get basicContrastTextColor => _getThemeColor(
     AppColors.semanticColorBasicContrastText,
-    const Color(0xFFFFFFFF)
+    AppColors.semanticColorBasicContrastTextDark
   );
 
   Color get basicContrastOppositeColor => _getThemeColor(
     AppColors.semanticColorBasicContrastOpposite,
-    const Color(0xFF1D1D1D)
+    AppColors.semanticColorBasicContrastOppositeDark
   );
 
   Color get colorlogoLineColor => _getThemeColor(
     AppColors.semanticColorColorlogoLine,
-    const Color(0xFFFFFFFF)
+    AppColors.semanticColorColorlogoLineDark
   );
 
   Color get backgroundColor => _getThemeColor(
     AppColors.semanticColorBackground,
-    const Color(0xFF1C1C1B)
+    AppColors.semanticColorBackgroundDark
   );
 
   Color get backgroundNavColor => _getThemeColor(
     AppColors.semanticColorBackgroundNav,
-    const Color(0xFF2C2D2D)
+    AppColors.semanticColorBackgroundNavDark
   );
 
   Color get backgroundNavStrongerColor => _getThemeColor(
     AppColors.semanticColorBackgroundNavStronger,
-    const Color(0xFF474949)
+    AppColors.semanticColorBackgroundNavStrongerDark
   );
 
   Color get greyColor => _getThemeColor(
     AppColors.semanticColorGrey,
-    const Color(0xFFA3A3A3)
+    AppColors.semanticColorGreyDark
   );
 
   Color get greyDarkerColor => _getThemeColor(
     AppColors.semanticColorGreyDarker,
-    const Color(0xFF515151)
+    AppColors.semanticColorGreyDarkerDark
   );
 
   Color get contrastOpacitySColor => _getThemeColor(
     AppColors.semanticColorContrastOpacityS,
-    const Color(0x1AFFFFFF)  // 10% white
+    AppColors.semanticColorContrastOpacitySDark
   );
 
   Color get contrastOpacityMColor => _getThemeColor(
     AppColors.semanticColorContrastOpacityM,
-    const Color(0x40FFFFFF)  // 25% white
+    AppColors.semanticColorContrastOpacityMDark
   );
 
   Color get backgroundCardsColor => _getThemeColor(
     AppColors.semanticColorBackgroundCards,
-    const Color(0xFF2C2D2D)
+    AppColors.semanticColorBackgroundCardsDark
   );
 
   Color get sucessPromoColor => _getThemeColor(
     AppColors.semanticColorSucessPromo,
-    const Color(0xFF48BF73)
+    AppColors.semanticColorSucessPromoDark
   );
 
   Color get warningYellowColor => _getThemeColor(
     AppColors.semanticColorWarningYellow,
-    const Color(0xFFECCB57)
+    AppColors.semanticColorWarningYellowDark
   );
 
   Color get brandRedColor => _getThemeColor(
     AppColors.semanticColorBrandRed,
-    const Color(0xFFCB1617)
+    AppColors.semanticColorBrandRedDark
   );
 
   Color get nightShowColor => _getThemeColor(
     AppColors.semanticColorNightShow,
-    const Color(0xFF3D70A2)
+    AppColors.semanticColorNightShowDark
   );
 }
