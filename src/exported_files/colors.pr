@@ -1,19 +1,144 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
-  {[ let brand = ds.currentBrand() /]}
-  {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
-  {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-    {[ for colorToken in colorTokenInGroups ]}
-      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-      {[ if (colorToken.description && colorToken.description !== "") ]}
-{{ createDocumentationComment(colorToken.description, "  ") }}
-      {[/]}
-      static const {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
+// Theme extension class
+class AppColors extends ThemeExtension<AppColors> {
+{[ let brand = ds.currentBrand() /]}
+{[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+{[ let hasThemeVariants = false /]}
+
+{[ // First pass to detect if any tokens have theme variants
+   traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+    {[ if colorToken.value && colorToken.value.light && colorToken.value.dark ]}
+      {[ set hasThemeVariants = true /]}
     {[/]}
   {[/]}
-  AppColors._();
+{[/]}
+
+{[ // Create the class properties
+   traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+  final Color {{ fullTokenName }};
+  {[/]}
+{[/]}
+
+  const AppColors({
+{[ // Constructor parameters
+   traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+    required this.{{ fullTokenName }},
+  {[/]}
+{[/]}
+  });
+
+  @override
+  AppColors copyWith({
+{[ // CopyWith parameters
+   traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+    Color? {{ fullTokenName }},
+  {[/]}
+{[/]}
+  }) {
+    return AppColors(
+{[ // CopyWith implementation
+   traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+      {{ fullTokenName }}: {{ fullTokenName }} ?? this.{{ fullTokenName }},
+  {[/]}
+{[/]}
+    );
+  }
+
+  @override
+  ThemeExtension<AppColors> lerp(ThemeExtension<AppColors>? other, double t) {
+    if (other is! AppColors) {
+      return this;
+    }
+    return AppColors(
+{[ // Lerp implementation
+   traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+      {{ fullTokenName }}: Color.lerp({{ fullTokenName }}, other.{{ fullTokenName }}, t)!,
+  {[/]}
+{[/]}
+    );
+  }
+
+  // Light theme values
+  static AppColors get light => AppColors(
+{[ // Light theme values
+   traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+    {[ if colorToken.value && colorToken.value.light ]}
+    {{ fullTokenName }}: Color(0x{{ colorToken.value.light.hex }}),
+    {[ else if colorToken.value && colorToken.value.hex ]}
+    {{ fullTokenName }}: Color(0x{{ colorToken.value.hex }}),
+    {[ else ]}
+    {{ fullTokenName }}: Color(0xFF000000),
+    {[/]}
+  {[/]}
+{[/]}
+  );
+
+  // Dark theme values
+  static AppColors get dark => AppColors(
+{[ // Dark theme values
+   traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+    {[ if colorToken.value && colorToken.value.dark ]}
+    {{ fullTokenName }}: Color(0x{{ colorToken.value.dark.hex }}),
+    {[ else if colorToken.value && colorToken.value.hex ]}
+    {{ fullTokenName }}: Color(0x{{ colorToken.value.hex }}),
+    {[ else ]}
+    {{ fullTokenName }}: Color(0xFF000000),
+    {[/]}
+  {[/]}
+{[/]}
+  );
+}
+
+// Theme configuration
+class AppTheme {
+  static ThemeData lightTheme = ThemeData.light().copyWith(
+    extensions: [AppColors.light],
+  );
+
+  static ThemeData darkTheme = ThemeData.dark().copyWith(
+    extensions: [AppColors.dark],
+  );
+}
+
+// Extension method for easy access
+extension AppThemeExtension on BuildContext {
+  AppColors get colors => Theme.of(this).extension<AppColors>()!;
 }
