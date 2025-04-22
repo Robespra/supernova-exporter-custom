@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  {[ const brand = ds.currentBrand() /]}
-  {[ const tokens = ds.tokensByType("Color", brand.id) /]}
-  {[ for token in tokens ]}
-    {[ if token.description ]}
-  {{ createDocumentationComment(token.description, "  ") }}
+  {[ let brand = ds.currentBrand() /]}
+  {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+  {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+    {[ for colorToken in colorTokenInGroups ]}
+      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+      {[ if (colorToken.description && colorToken.description !== "") ]}
+  {{ createDocumentationComment(colorToken.description, "  ") }}
+      {[/]}
+      static const Color {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
     {[/]}
-  static const Color {{ token.name }} = {[ inject "export_color_value" context token.value /]};
   {[/]}
   AppColors._();
 }
