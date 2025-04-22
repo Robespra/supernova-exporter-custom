@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors extends ThemeExtension<AppColors> {
-  // Semantic colors (with light/dark variants)
   {[ let brand = ds.currentBrand() /]}
   {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+
+  // Semantic colors (with light/dark variants)
   {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
     {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
     {[ for colorToken in colorTokenInGroups ]}
       {[ if colorToken.name.startsWith("--") ]}
@@ -16,20 +16,16 @@ class AppColors extends ThemeExtension<AppColors> {
 
   // Non-semantic colors (single value)
   {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
     {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
     {[ for colorToken in colorTokenInGroups ]}
       {[ if !colorToken.name.startsWith("--") ]}
-      {[ log "Non-semantic color token:" /]}
-      {[ log colorToken /]}
-  static const Color {{ colorToken.name }} = {[ inject "export_color_value" context colorToken /]};
+  static const Color {{ colorToken.name }} = Color(0x{{ colorToken.value.hex }});
       {[/]}
     {[/]}
   {[/]}
 
   const AppColors({
     {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-      {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
@@ -42,7 +38,6 @@ class AppColors extends ThemeExtension<AppColors> {
   @override
   AppColors copyWith({
     {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-      {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
@@ -53,7 +48,6 @@ class AppColors extends ThemeExtension<AppColors> {
   }) {
     return AppColors(
       {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-        {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
         {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
         {[ for colorToken in colorTokenInGroups ]}
           {[ if colorToken.name.startsWith("--") ]}
@@ -71,7 +65,6 @@ class AppColors extends ThemeExtension<AppColors> {
     }
     return AppColors(
       {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-        {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
         {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
         {[ for colorToken in colorTokenInGroups ]}
           {[ if colorToken.name.startsWith("--") ]}
@@ -85,11 +78,10 @@ class AppColors extends ThemeExtension<AppColors> {
   // Light theme values
   static AppColors get light => const AppColors(
     {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-      {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context { "value": { "light": colorToken.value.light } } /]},
+    {{ getSemanticName(colorToken.name) }}: Color(0x{{ colorToken.value.light.hex }}),
         {[/]}
       {[/]}
     {[/]}
@@ -98,11 +90,10 @@ class AppColors extends ThemeExtension<AppColors> {
   // Dark theme values
   static AppColors get dark => const AppColors(
     {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-      {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context { "value": { "dark": colorToken.value.dark } } /]},
+    {{ getSemanticName(colorToken.name) }}: Color(0x{{ colorToken.value.dark.hex }}),
         {[/]}
       {[/]}
     {[/]}
