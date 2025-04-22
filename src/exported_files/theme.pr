@@ -13,7 +13,7 @@ class AppTheme {
           {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
           {[ for colorToken in colorTokenInGroups ]}
             {[ if colorToken.name.startsWith("--") ]}
-        {{ colorToken.name.replace("--", "") }}: const {[ inject "export_color_value" context colorToken.value.light /]},
+        {{ colorToken.name.substring(2) }}: const {[ inject "export_color_value" context colorToken.value.light /]},
             {[/]}
           {[/]}
         {[/]}
@@ -32,7 +32,7 @@ class AppTheme {
           {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
           {[ for colorToken in colorTokenInGroups ]}
             {[ if colorToken.name.startsWith("--") ]}
-        {{ colorToken.name.replace("--", "") }}: const {[ inject "export_color_value" context colorToken.value.dark /]},
+        {{ colorToken.name.substring(2) }}: const {[ inject "export_color_value" context colorToken.value.dark /]},
             {[/]}
           {[/]}
         {[/]}
