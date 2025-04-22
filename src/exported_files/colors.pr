@@ -1,90 +1,75 @@
 import 'package:flutter/material.dart';
 
 class AppColors extends ThemeExtension<AppColors> {
-
-{[ let brand = ds.currentBrand() /]}
-{[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
-{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-  {[ if (colorToken.description && colorToken.description !== "") ]}
-{{ createDocumentationComment(colorToken.description, "  ") }}
-  {[/]}
-  final Color {{ fullTokenName }};
-
-  {[/]}
-{[/]}
-
-const AppColors({
+  {[ let brand = ds.currentBrand() /]}
+  {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
   {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
     {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
     {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
     {[ for colorToken in colorTokenInGroups ]}
-    {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-    {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-  required this.{{ fullTokenName }},
+      {[ if colorToken.name.startsWith("--") ]}
+        {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+  final Color {{ simpleName }};
+      {[/]}
     {[/]}
   {[/]}
-});
 
-@override
-ThemeExtension<AppColors> copyWith({
-  {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-    {[ for colorToken in colorTokenInGroups ]}
-    {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-    {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-  Color? {{ fullTokenName }},
-    {[/]}
-  {[/]}
-}) {
-  return AppColors(
+  const AppColors({
     {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
       {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
-      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    {{ fullTokenName }}: {{ fullTokenName }} ?? this.{{ fullTokenName }},
+        {[ if colorToken.name.startsWith("--") ]}
+          {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+    required this.{{ simpleName }},
+        {[/]}
       {[/]}
     {[/]}
-  );
-}
+  });
 
-@override
-ThemeExtension<AppColors> lerp(ThemeExtension<AppColors>? other, double t) {
-  if (other is! AppColors) {
-    return this;
+  @override
+  AppColors copyWith({
+    {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+      {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+      {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+      {[ for colorToken in colorTokenInGroups ]}
+        {[ if colorToken.name.startsWith("--") ]}
+          {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+    Color? {{ simpleName }},
+        {[/]}
+      {[/]}
+    {[/]}
+  }) {
+    return AppColors(
+      {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+        {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+        {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+        {[ for colorToken in colorTokenInGroups ]}
+          {[ if colorToken.name.startsWith("--") ]}
+            {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+      {{ simpleName }}: {{ simpleName }} ?? this.{{ simpleName }},
+          {[/]}
+        {[/]}
+      {[/]}
+    );
   }
-  return AppColors(
-    {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-      {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-      {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-      {[ for colorToken in colorTokenInGroups ]}
-      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    {{ fullTokenName }}: Color.lerp({{ fullTokenName }}, other.{{ fullTokenName }}, t)!,
-      {[/]}
-    {[/]}
-  );
-}
 
-/// Creates a copy of this AppColors with the given opacity applied to all colors
-AppColors withOpacity(double opacity) {
-  return AppColors(
-    {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-      {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-      {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-      {[ for colorToken in colorTokenInGroups ]}
-      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    {{ fullTokenName }}: {{ fullTokenName }}.withOpacity(opacity),
+  @override
+  ThemeExtension<AppColors>? lerp(covariant AppColors? other, double t) {
+    if (other is! AppColors) {
+      return this;
+    }
+    return AppColors(
+      {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+        {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+        {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+        {[ for colorToken in colorTokenInGroups ]}
+          {[ if colorToken.name.startsWith("--") ]}
+            {[ const simpleName = colorToken.name.substring(2).camelcased(false) /]}
+      {{ simpleName }}: Color.lerp({{ simpleName }}, other.{{ simpleName }}, t)!,
+          {[/]}
+        {[/]}
       {[/]}
-    {[/]}
-  );
-}
+    );
+  }
 }
