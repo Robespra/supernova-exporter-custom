@@ -1,133 +1,72 @@
 import 'package:flutter/material.dart';
 
-// Theme extension class
-class AppColors extends ThemeExtension<AppColors> {
-{[ let brand = ds.currentBrand() /]}
-{[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
-
-{[ // Create the class properties
-   traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-  final Color {{ fullTokenName }};
+class AppColors {
+  {[ let brand = ds.currentBrand() /]}
+  {[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+  {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+    {[ for colorToken in colorTokenInGroups ]}
+      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
+      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
+      {[ if (colorToken.description && colorToken.description !== "") ]}
+{{ createDocumentationComment(colorToken.description, "  ") }}
+      {[/]}
+      static const {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
+    {[/]}
   {[/]}
-{[/]}
 
-  const AppColors({
-{[ // Constructor parameters
-   traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    required this.{{ fullTokenName }},
-  {[/]}
-{[/]}
-  });
-
-  @override
-  AppColors copyWith({
-{[ // CopyWith parameters
-   traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    Color? {{ fullTokenName }},
-  {[/]}
-{[/]}
-  }) {
-    return AppColors(
-{[ // CopyWith implementation
-   traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-      {{ fullTokenName }}: {{ fullTokenName }} ?? this.{{ fullTokenName }},
-  {[/]}
-{[/]}
-    );
-  }
-
-  @override
-  ThemeExtension<AppColors> lerp(ThemeExtension<AppColors>? other, double t) {
-    if (other is! AppColors) {
-      return this;
+  // Theme-aware color access
+  static Color getThemeColor(BuildContext context, String colorName) {
+    final brightness = Theme.of(context).brightness;
+    switch (colorName) {
+      case "text":
+        return brightness == Brightness.light ? text : Color(0xFFF6F6F6);
+      case "basicContrastText":
+        return brightness == Brightness.light ? basicContrastText : Color(0xFFFFFFFF);
+      case "basicContrastOpposite":
+        return brightness == Brightness.light ? basicContrastOpposite : Color(0xFF1D1D1D);
+      case "colorlogoLine":
+        return brightness == Brightness.light ? colorlogoLine : Color(0xFFFFFFFF);
+      case "background":
+        return brightness == Brightness.light ? background : Color(0xFF1C1C1B);
+      case "backgroundNav":
+        return brightness == Brightness.light ? backgroundNav : Color(0xFF2C2D2D);
+      case "backgroundNavStronger":
+        return brightness == Brightness.light ? backgroundNavStronger : Color(0xFF474949);
+      case "grey":
+        return brightness == Brightness.light ? grey : Color(0xFFA3A3A3);
+      case "greyDarker":
+        return brightness == Brightness.light ? greyDarker : Color(0xFF515151);
+      case "backgroundCards":
+        return brightness == Brightness.light ? backgroundCards : Color(0xFF2C2D2D);
+      case "sucessPromo":
+        return brightness == Brightness.light ? sucessPromo : Color(0xFF48BF73);
+      case "warningYellow":
+        return brightness == Brightness.light ? warningYellow : Color(0xFFECCB57);
+      case "brandRed":
+        return brightness == Brightness.light ? brandRed : Color(0xFFCB1617);
+      default:
+        return Color(0xFF000000);
     }
-    return AppColors(
-{[ // Lerp implementation
-   traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-      {{ fullTokenName }}: Color.lerp({{ fullTokenName }}, other.{{ fullTokenName }}, t)!,
-  {[/]}
-{[/]}
-    );
   }
 
-  // Light theme values
-  static AppColors get light => AppColors(
-{[ // Light theme values
-   traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    {[ if colorToken.value.light ]}
-    {{ fullTokenName }}: Color(0x{{ colorToken.value.light.hex }}),
-    {[ else if colorToken.value.hex ]}
-    {{ fullTokenName }}: Color(0x{{ colorToken.value.hex }}),
-    {[ else ]}
-    {{ fullTokenName }}: Color(0xFF000000),
-    {[/]}
-  {[/]}
-{[/]}
-  );
-
-  // Dark theme values
-  static AppColors get dark => AppColors(
-{[ // Dark theme values
-   traverse colorTokensTree property subgroups into colorTokenGroup ]}
-  {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-  {[ for colorToken in colorTokenInGroups ]}
-  {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-  {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-    {[ if colorToken.value.dark ]}
-    {{ fullTokenName }}: Color(0x{{ colorToken.value.dark.hex }}),
-    {[ else if colorToken.value.hex ]}
-    {{ fullTokenName }}: Color(0x{{ colorToken.value.hex }}),
-    {[ else ]}
-    {{ fullTokenName }}: Color(0xFF000000),
-    {[/]}
-  {[/]}
-{[/]}
-  );
+  AppColors._();
 }
 
-// Theme configuration
-class AppTheme {
-  static ThemeData lightTheme = ThemeData.light().copyWith(
-    extensions: [AppColors.light],
-  );
-
-  static ThemeData darkTheme = ThemeData.dark().copyWith(
-    extensions: [AppColors.dark],
-  );
-}
-
-// Extension method for easy access
-extension AppThemeExtension on BuildContext {
-  AppColors get colors => Theme.of(this).extension<AppColors>()!;
+// Extension for easier theme access
+extension ThemeColors on BuildContext {
+  Color get textColor => AppColors.getThemeColor(this, "text");
+  Color get basicContrastTextColor => AppColors.getThemeColor(this, "basicContrastText");
+  Color get basicContrastOppositeColor => AppColors.getThemeColor(this, "basicContrastOpposite");
+  Color get colorlogoLineColor => AppColors.getThemeColor(this, "colorlogoLine");
+  Color get backgroundColor => AppColors.getThemeColor(this, "background");
+  Color get backgroundNavColor => AppColors.getThemeColor(this, "backgroundNav");
+  Color get backgroundNavStrongerColor => AppColors.getThemeColor(this, "backgroundNavStronger");
+  Color get greyColor => AppColors.getThemeColor(this, "grey");
+  Color get greyDarkerColor => AppColors.getThemeColor(this, "greyDarker");
+  Color get backgroundCardsColor => AppColors.getThemeColor(this, "backgroundCards");
+  Color get sucessPromoColor => AppColors.getThemeColor(this, "sucessPromo");
+  Color get warningYellowColor => AppColors.getThemeColor(this, "warningYellow");
+  Color get brandRedColor => AppColors.getThemeColor(this, "brandRed");
 }
