@@ -5,7 +5,15 @@ Color(0x{{ context }})
 {[ else if context.hex ]}
 Color(0x{{ context.hex }})
 {[ else if context.value ]}
-Color(0x{{ context.value }})
+  {[ if context.value.hex ]}
+Color(0x{{ context.value.hex }})
+  {[ else if context.value.light ]}
+Color(0x{{ context.value.light.hex }})
+  {[ else if context.value.dark ]}
+Color(0x{{ context.value.dark.hex }})
+  {[ else ]}
+Color(0xFF000000)
+  {[/]}
 {[ else ]}
-Color(0xFF000000) // Fallback black color for debugging
+Color(0xFF000000)
 {[/]}

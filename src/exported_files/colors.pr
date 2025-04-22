@@ -89,9 +89,7 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-        {[ log "Light theme color token:" /]}
-        {[ log colorToken /]}
-    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context colorToken /]},
+    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context { "value": { "light": colorToken.value.light } } /]},
         {[/]}
       {[/]}
     {[/]}
@@ -104,9 +102,7 @@ class AppColors extends ThemeExtension<AppColors> {
       {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
       {[ for colorToken in colorTokenInGroups ]}
         {[ if colorToken.name.startsWith("--") ]}
-        {[ log "Dark theme color token:" /]}
-        {[ log colorToken /]}
-    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context colorToken /]},
+    {{ getSemanticName(colorToken.name) }}: {[ inject "export_color_value" context { "value": { "dark": colorToken.value.dark } } /]},
         {[/]}
       {[/]}
     {[/]}
