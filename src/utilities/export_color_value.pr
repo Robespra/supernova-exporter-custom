@@ -1,11 +1,5 @@
-{[ let hexValue = "" /]}
-{[ if context.hex ]}
-  {[ set hexValue = context.hex /]}
+{[ if typeof context === "object" ]}
+Color(0x{{ context.hex }})
 {[ else ]}
-  {[ set hexValue = context /]}
+Color(0x{{ context }})
 {[/]}
-{[ const alpha = hexValue.substring(6, 2) /]}
-{[ const red = hexValue.substring(0, 2) /]}
-{[ const green = hexValue.substring(2, 2) /]}
-{[ const blue = hexValue.substring(4, 2) /]}
-Color(0x{{alpha}}{{red}}{{green}}{{blue}})
