@@ -15,22 +15,10 @@ class AppColors {
   {{ createDocumentationComment(colorToken.description, "  ") }}
       {[/]}
       {[ if colorToken.name.startsWith("--") ]}
-  static const {{ fullTokenName }}Light = {[ inject "export_color_value" context colorToken.value.light /]};
+  static const Color {{ fullTokenName }}Light = {[ inject "export_color_value" context colorToken.value.light /]};
+  static const Color {{ fullTokenName }}Dark = {[ inject "export_color_value" context colorToken.value.dark /]};
       {[ else ]}
-  static const {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
-      {[/]}
-    {[/]}
-  {[/]}
-
-  // Dark theme colors
-  {[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
-    {[ let fullTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
-    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
-    {[ for colorToken in colorTokenInGroups ]}
-      {[ const fullTokenPath = arrayConcat(fullTokenGroupPath, colorToken.name) /]}
-      {[ const fullTokenName = arrayJoin(fullTokenPath, " ").camelcased(false) /]}
-      {[ if colorToken.name.startsWith("--") ]}
-  static const {{ fullTokenName }}Dark = {[ inject "export_color_value" context colorToken.value.dark /]};
+  static const Color {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
       {[/]}
     {[/]}
   {[/]}
