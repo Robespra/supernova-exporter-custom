@@ -15,10 +15,10 @@ class AppColors {
   {{ createDocumentationComment(colorToken.description, "  ") }}
       {[/]}
       {[ if colorToken.name.startsWith("--") ]}
-  static const Color {{ fullTokenName }}Light = {[ inject "export_color_value" context colorToken.value.light /]};
-  static const Color {{ fullTokenName }}Dark = {[ inject "export_color_value" context colorToken.value.dark /]};
+  static const Color {{ fullTokenName }}Light = Color(0x{{ colorToken.value.light.hex }});
+  static const Color {{ fullTokenName }}Dark = Color(0x{{ colorToken.value.dark.hex }});
       {[ else ]}
-  static const Color {{ fullTokenName }} = {[ inject "export_color_value" context colorToken.value /]};
+  static const Color {{ fullTokenName }} = Color(0x{{ colorToken.value.hex }});
       {[/]}
     {[/]}
   {[/]}
